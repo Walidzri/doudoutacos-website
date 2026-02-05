@@ -1,13 +1,28 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { site } from "../data/site";
+import { menuItems } from "../data/menu.ts";
 ---
+
 
 <Layout>
   <main class="mx-auto max-w-5xl px-6 py-16">
     <h1 class="text-5xl">Menu</h1>
-    <p class="mt-3 text-neutral-600" style="font-family: Inter, system-ui, sans-serif;">
-      Ici tu mettras ton menu (JSON, cartes, sections…).
-    </p>
+
+    {menuItems.map((item) => (
+      <div> <h2>{item.name}</h2>
+        <p>{item.description}</p>
+        {item.fillings.map((filling) => ( 
+        <div>
+          {filling.name}
+            {filling.sizes.map((variante) => (
+              <li>
+                {variante.size} - {variante.price} DA
+              </li>
+            ))}
+        </div>))}
+          </div>
+    ))}
+
   </main>
 </Layout>
