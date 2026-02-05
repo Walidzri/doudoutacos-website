@@ -1,0 +1,86 @@
+---
+type VideoItem = { src: string; poster?: string };
+
+const { title, tagline, buttonMenu, labelMenu, buttonLocation, labelLocation, videos } = Astro.props as {
+  title: string;
+  tagline: string;
+  buttonMenu: string;
+  labelMenu: string;
+  buttonLocation: string;
+  labelLocation: string;
+  videos: VideoItem[];
+};
+
+// fallback si aucune vidéo
+const hasVideos = Array.isArray(videos) && videos.length > 0;
+---
+
+<section class="relative overflow-hidden">
+  <!-- Fond vidéo -->
+  {hasVideos ? (
+    <div class="absolute inset-0">
+      <video
+        class="h-full w-full object-cover"
+        autoplay
+        muted
+        playsinline
+        loop
+        preload="metadata"
+        poster={videos[0]?.poster || undefined}
+      >
+        <source src={videos[0].src} type="video/mp4" />
+      </video>
+
+      <!-- overlay -->
+      <div class="absolute inset-0 bg-black/55"></div>
+
+      <!-- mini thumbnails desktop (option) -->
+      <div class="pointer-events-none absolute bottom-6 left-1/2 hidden w-full max-w-5xl -translate-x-1/2 gap-4 px-6 md:flex">
+        {videos.slice(0, 3).map((v) => (
+          <div class="h-20 w-32 overflow-hidden rounded-xl bg-white/10 ring-1 ring-white/15">
+            <video class="h-full w-full object-cover opacity-80" muted playsinline loop preload="metadata" poster={v.poster || undefined}>
+              <source src={v.src} type="video/mp4" />
+            </video>
+          </div>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <div class="absolute inset-0 bg-neutral-950"></div>
+  )}
+
+  <!-- Contenu -->
+  <div class="relative mx-auto flex min-h-[85vh] max-w-5xl flex-col items-center justify-center px-6 py-20 text-center">
+    <h1 class="text-6xl leading-none text-white drop-shadow md:text-7xl">
+      {title}
+    </h1>
+
+    <p class="mt-4 max-w-xl text-base text-white/85 md:text-lg" style="font-family: Inter, system-ui, sans-serif;">
+      {tagline}
+    </p>
+
+    <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+      <a
+        href={buttonMenu}
+        class="inline-flex items-center justify-center rounded-2xl bg-yellow-500 px-7 py-3 text-base font-semibold text-white shadow-lg transition hover:scale-[1.03] hover:bg-yellow-400"
+        style="font-family: Inter, system-ui, sans-serif;"
+      >
+        {labelMenu}
+      </a>
+
+      <a
+        href={buttonLocation}
+        class="inline-flex items-center justify-center rounded-2xl bg-white/10 px-7 py-3 text-base font-semibold text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white/15"
+        style="font-family: Inter, system-ui, sans-serif;"
+      >
+        {labelLocation}
+      </a>
+    </div>
+
+    <div class="mt-10 text-white/70" style="font-family: Inter, system-ui, sans-serif;">
+      <span class="inline-block rounded-full bg-white/10 px-4 py-2 ring-1 ring-white/15">
+        Bougaa • Street Food • Sandwichs • Tacos
+      </span>
+    </div>
+  </div>
+</section>

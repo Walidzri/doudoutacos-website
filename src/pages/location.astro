@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import LocationSection from "../components/Location.astro";
+import HoursSection from "../components/Horaire.astro";
+import { site } from "../data/site";
+
+---
+
+
+<Layout>
+
+  <LocationSection
+    title={site.location.title}
+    addressLine1={site.location.addressLine1}
+    addressLine2={site.location.addressLine2}
+    mapsEmbedUrl={site.location.mapsEmbedUrl}
+    directionsUrl={site.location.directionsUrl}
+  />
+
+  <HoursSection
+    title={site.hours.title}
+    items={site.hours.items}
+    note={site.hours.note}
+  />
+
+  </Layout>

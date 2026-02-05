@@ -1,0 +1,40 @@
+---
+const { title, addressLine1, addressLine2, mapsEmbedUrl, directionsUrl } = Astro.props as {
+  title: string;
+  addressLine1: string;
+  addressLine2: string;
+  mapsEmbedUrl: string;
+  directionsUrl: string;
+};
+---
+
+<section id="localisation" class="py-16 px-6">
+  <div class="mx-auto max-w-5xl text-center">
+    <h2 class="text-4xl md:text-5xl">{title}</h2>
+
+    <p class="mt-3 text-neutral-600" style="font-family: Inter, system-ui, sans-serif;">
+      {addressLine1}<br />{addressLine2}
+    </p>
+
+    <div class="mt-8 overflow-hidden rounded-2xl shadow ring-1 ring-black/5">
+      <iframe
+        class="h-72 w-full md:h-96"
+        src={mapsEmbedUrl}
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+    <a
+      class="mt-6 inline-flex items-center justify-center rounded-xl bg-black px-5 py-3 text-white shadow transition hover:bg-neutral-800"
+      style="font-family: Inter, system-ui, sans-serif;"
+      href={directionsUrl}
+      target="_blank"
+      rel="noreferrer"
+    >
+      Itinéraire
+    </a>
+  </div>
+</section>

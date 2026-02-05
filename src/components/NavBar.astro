@@ -1,0 +1,28 @@
+---
+const links = [
+  { label: "Accueil", href: "/" },
+  { label: "Menu", href: "/menu" },
+  { label: "Localisation", href: "/location" },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-black/5 bg-white/80 backdrop-blur">
+    <nav class="flex w-full flex-nowrap items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
+
+    <a href="/" class="flex items-center gap-2">
+        <img src="../../public/favicon.ico" class="h-9" alt="Doudou Tacos" />
+        <span class="text-2xl font-semibold">Doudou Tacos</span>
+    </a>
+        <div class=" hidden md:flex items-center gap-6 text-base md:text-lg font-semibold">
+        {links.map((l) => (
+            <a
+            href={l.href}
+            class="rounded-xl px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-black/5"
+            style="font-family: Inter, system-ui, sans-serif;"
+            >
+            {l.label}
+            </a>
+        ))}
+        </div>
+  </nav>
+</header>
