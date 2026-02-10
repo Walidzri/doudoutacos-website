@@ -17,19 +17,19 @@ export const site = {
   hours: {
     title: "Horaires",
     items: [
-      { label: "Lundi", value: "—" },
-      { label: "Mardi", value: "—" },
-      { label: "Mercredi", value: "—" },
-      { label: "Jeudi", value: "—" },
-      { label: "Vendredi", value: "—" },
-      { label: "Samedi", value: "—" },
-      { label: "Dimanche", value: "—" },
+      { label: "Lundi", value: "12:00 — 22:00" },
+      { label: "Mardi", value: "12:00 — 22:00" },
+      { label: "Mercredi", value: "12:00 — 22:00" },
+      { label: "Jeudi", value: "12:00 — 22:00" },
+      { label: "Vendredi", value: "12:00 — 22:00" },
+      { label: "Samedi", value: "12:00 — 22:00" },
+      { label: "Dimanche", value: "12:00 — 22:00" },
     ],
-    note: "Mets tes horaires réels dans src/data/site.ts",
+    // note: "Mets tes horaires réels dans src/data/site.ts",
   },
 
   heroVideos: [
-    // ✅ Tu fournis les vidéos ici (chemins dans /public)
+    // Tu fournis les vidéos ici (chemins dans /public)
     { src: "/videos/hero-1.mp4", poster: "/poster/hero-1.jpg" },
     { src: "/videos/hero-2.mp4", poster: "/poster/hero-2.jpg" },
     { src: "/videos/hero-3.mp4", poster: "/poster/hero-3.jpg" },

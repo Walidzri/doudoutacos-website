@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { menuCategories  } from "../data/menu.ts";
+---
+
+<main class="mx-auto max-w-5xl px-6 py-16">
+    <h1 class="text-5xl flex items-center justify-center">Menu</h1>
+    
+    <!-- Boutton raccourcis des catégories -->
+    
+    <h2 class="text-5xl mt-20">Catégories</h2>
+    <div class="flex flex-wrap gap-3">
+    {menuCategories.map((cat) => (
+      
+      <a href={"#" + cat.id} class="mt-6 inline-flex items-center rounded-full bg-white px-4 py-2 text-sm shadow ring-1 ring-black/5 hover:bg-black/5">{cat.name}</a>
+
+    ))}
+    </div>
+    <!-- Boutton de catégories -->
+
+    <!-- Listes déroulantes des articles par catégories -->
+
+    {menuCategories.map((cat) => (
+      <section id={cat.id} class="mt-10 scroll-mt-24">
+      <h2 class="text-4xl">{cat.name}</h2>
+      <p class="text-neutral-600">{cat.description}</p> 
+          
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        {cat.items.map((item) => (
+          <details data-accordion class="group bg-white rounded-2xl shadow p-6 ring-1 ring-black/5 self-start">
+            <summary class="cursor-pointer list-none">
+              <h3 class="text-3xl">{item.name}</h3>
+              <p class="text-neutral-600 text-sm">{item.description}</p>
+            </summary>  
+              <div data-accordion-content class="mt-5 overflow-hidden">    
+                {item.fillings.map((filling) => ( 
+                <div class="mt-4 font-semibold">
+                  {filling.name}
+                  <div class="flex flex-wrap gap-3 items-center list-inside text-sm text-neutral-600"> 
+                    {filling.sizes.map((variante) => (
+                      <span class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-sm text-neutral-800 ring-1 ring-black/5">
+                        <span class="font-medium">{variante.size}</span>
+                        <span class="text-neutral-600">{variante.price} DA</span>
+                        </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              </div>
+
+          </details>
+        ))}
+      </div>
+      </section>
+    ))}
+
+    <!-- Listes déroulantes des articles par catégories -->
+  </main>
+
+  <script is:inline>
+  const accordions = document.querySelectorAll("details[data-accordion]");
+
+  accordions.forEach((details) => {
+    const summary = details.querySelector("summary");
+    const content = details.querySelector("[data-accordion-content]");
+
+    if (!summary || !content) return;
+
+    // État initial : si c'est fermé, on met height:0 pour que ce soit cohérent
+    if (!details.open) {
+      content.style.height = "0px";
+    } else {
+      content.style.height = "auto";
+    }
+
+    summary.addEventListener("click", (e) => {
+      // On empêche le toggle natif, sinon ça "pop" avant l'anim
+      e.preventDefault();
+
+      const isOpen = details.open;
+
+      // Paramètres d'anim
+      const duration = 300;
+      content.style.overflow = "hidden";
+      content.style.transition = `height ${duration}ms ease`;
+
+      if (!isOpen) {
+        // OUVERTURE
+        details.open = true;
+
+        // On part de 0 puis on anime vers la hauteur réelle
+        content.style.height = "0px";
+
+        // Forcer le navigateur à "prendre en compte" height:0 avant de changer
+        content.offsetHeight;
+
+        const target = content.scrollHeight;
+        content.style.height = target + "px";
+
+        // Après l'anim : on remet auto
+        window.setTimeout(() => {
+          content.style.height = "auto";
+        }, duration);
+      } else {
+        // FERMETURE
+        // On fige la hauteur actuelle (auto -> px) puis on anime vers 0
+        const start = content.scrollHeight;
+        content.style.height = start + "px";
+
+        // Forcer reflow
+        content.offsetHeight;
+
+        content.style.height = "0px";
+
+        // Après l'anim : on ferme details
+        window.setTimeout(() => {
+          details.open = false;
+        }, duration);
+      }
+    });
+  });
+</script>

@@ -14,6 +14,7 @@ const links = [
         <span class="text-2xl font-semibold">Doudou Tacos</span>
     </a>
         <div class=" hidden md:flex items-center gap-6 text-base md:text-lg font-semibold">
+
         {links.map((l) => (
             <a
             href={l.href}
@@ -24,5 +25,58 @@ const links = [
             </a>
         ))}
         </div>
+
+    <button
+        id="menuBtn"
+        type="button"
+        class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl hover:bg-black/5"
+        aria-label="Ouvrir le menu"
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        </button>
   </nav>
+
+  <div id="mobileMenu" class="md:hidden hidden border-t border-black/5 bg-white/90 backdrop-blur">
+  <div class="px-4 py-4 sm:px-6 lg:px-10 flex flex-col gap-2">
+    {links.map((l) => (
+      <a
+        href={l.href}
+        class="rounded-xl px-3 py-3 text-base font-semibold text-neutral-800 hover:bg-black/5"
+        style="font-family: Inter, system-ui, sans-serif;"
+      >
+        {l.label}
+      </a>
+    ))}
+  </div>
+</div>
 </header>
+
+<script is:inline>
+  const btn = document.getElementById("menuBtn");
+  const menu = document.getElementById("mobileMenu");
+
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      const isHidden = menu.classList.contains("hidden");
+      menu.classList.toggle("hidden");
+
+      // accessibilité
+      btn.setAttribute("aria-expanded", String(isHidden));
+    });
+
+    // fermer quand on clique un lien
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        menu.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+</script>
+
