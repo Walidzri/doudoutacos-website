@@ -29,9 +29,12 @@ import { menuCategories  } from "../data/menu.ts";
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
         {cat.items.map((item) => (
           <details data-accordion class="group bg-white rounded-2xl shadow p-6 ring-1 ring-black/5 self-start">
-            <summary class="cursor-pointer list-none">
-              <h3 class="text-3xl">{item.name}</h3>
-              <p class="text-neutral-600 text-sm">{item.description}</p>
+            <summary class="cursor-pointer list-none flex items-center justify-between gap-3">
+            <div>
+                <h3 class="text-3xl">{item.name}</h3>
+                <p class="text-neutral-600 text-sm">{item.description}</p>
+            </div>
+                <img class="w-24 h-24 rounded-full object-cover shrink-0" src={item.image} alt={item.name} />
             </summary>  
               <div data-accordion-content class="mt-5 overflow-hidden">    
                 {item.fillings.map((filling) => ( 

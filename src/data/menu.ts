@@ -7,6 +7,7 @@ export const menuCategories = [
       {
         id: "tacos",
         name: "Tacos Classique",
+        image: "cat-images/tacos.jpg",
         description: "Tacos classique, sauce fromagère, frites",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "L", price: 350 }, { size: "XL", price: 700 }, { size: "XXL", price: 1050 }] },
@@ -19,6 +20,7 @@ export const menuCategories = [
       {
         id: "tacos-gratine",
         name: "Tacos Gratiné",
+        image: "cat-images/tacos-gratine.jpg",
         description: "Sauce fromagère, frites, gratiné au four",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "L", price: 400 }, { size: "XL", price: 800 }, { size: "XXL", price: 1200 }] },
@@ -39,6 +41,7 @@ export const menuCategories = [
       {
         id: "makloub",
         name: "Makloub",
+        image: "cat-images/makloub.jpg",
         description: "Prix unique selon garniture",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "Unique", price: 350 }] },
@@ -51,6 +54,7 @@ export const menuCategories = [
       {
         id: "tabouna",
         name: "Tabouna",
+        image: "cat-images/tabouna.jpg",
         description: "Prix unique selon garniture",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "Unique", price: 300 }] },
@@ -63,6 +67,7 @@ export const menuCategories = [
       {
         id: "malfouf",
         name: "Malfouf",
+        image: "cat-images/malfouf.jpg",
         description: "Prix unique selon garniture",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "Unique", price: 300 }] },
@@ -75,6 +80,7 @@ export const menuCategories = [
       {
         id: "baguette-farcie",
         name: "Baguette Farcie",
+        image: "cat-images/baguette-farcie.jpg",
         description: "Prix unique",
         fillings: [{ id: "mixte", name: "Mixte", sizes: [{ size: "Unique", price: 500 }] }],
       },
@@ -89,6 +95,7 @@ export const menuCategories = [
       {
         id: "pizza",
         name: "Pizza",
+        image: "cat-images/pizza.jpg",
         description: "Choisis ta pizza et ta taille",
         fillings: [
           { id: "margherita", name: "Margherita", sizes: [{ size: "L", price: 300 }, { size: "XL", price: 550 }, { size: "XXL", price: 700 }] },
@@ -121,6 +128,7 @@ export const menuCategories = [
       {
         id: "fried-chicken",
         name: "Fried Chicken",
+        image: "cat-images/fried-chicken.jpg",
         description: "Boxes",
         fillings: [
           { id: "wings-4", name: "Wings x4 + frites", sizes: [{ size: "Box", price: 350 }] },
@@ -140,6 +148,7 @@ export const menuCategories = [
       {
         id: "gratins",
         name: "Gratins",
+        image: "cat-images/gratin.jpg",
         description: "Prix unique",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "Unique", price: 450 }] },
@@ -150,6 +159,7 @@ export const menuCategories = [
       {
         id: "poutine",
         name: "Poutine",
+        image: "cat-images/poutine.jpg",
         description: "Prix unique",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "Unique", price: 450 }] },
@@ -160,6 +170,7 @@ export const menuCategories = [
       {
         id: "souffle",
         name: "Soufflé",
+        image: "cat-images/souffle.jpg",
         description: "Sauce rouge / Sauce boisée",
         fillings: [
           { id: "poulet", name: "Poulet", sizes: [{ size: "Sauce rouge", price: 450 }, { size: "Sauce boisée", price: 500 }] },
@@ -179,6 +190,7 @@ export const menuCategories = [
       {
         id: "burgers",
         name: "Burgers",
+        image: "cat-images/burger.jpg",
         description: "Poulet et V.H",
         fillings: [
           {
