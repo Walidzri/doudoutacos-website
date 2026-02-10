@@ -1,19 +1,54 @@
-image: docker:24
-
-services:
-  - docker:24-dind
-
-variables:
-  DOCKER_TLS_CERTDIR: ""
-
 stages:
   - build
+  - deploy
+
+variables:
+  IMAGE_NAME_DOCKER: doudoutacos-website
+  IMAGE_BASE: "$CI_REGISTRY_IMAGE/$IMAGE_NAME_DOCKER"
+  IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+  IMAGE_SHA: "$IMAGE_BASE:$IMAGE_TAG"
+  IMAGE_LATEST: "$IMAGE_BASE:latest"
+  DOCKER_TLS_CERTDIR: ""
 
 build_image:
   stage: build
+  image: docker:24
+  services:
+    - name: docker:24-dind
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE:latest .
-    - docker push $CI_REGISTRY_IMAGE:latest
-  only:
-    - main
+    - echo "Connexion au registry GitLab"
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+
+    - echo "Build + tag (SHA + latest)"
+    - docker build -t "$IMAGE_SHA" -t "$IMAGE_LATEST" .
+
+    - echo "Push (SHA + latest)"
+    - docker push "$IMAGE_SHA"
+    - docker push "$IMAGE_LATEST"
+
+deploy:
+  stage: deploy
+  image: alpine:3.20
+  needs: ["build_image"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  before_script:
+    - echo "Init SSH"
+    - apk add --no-cache openssh-client
+    - eval "$(ssh-agent -s)"
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - ssh-keyscan -H 77.42.16.77 >> ~/.ssh/known_hosts
+  script:
+    - echo "Déploiement sur VPS (image tag = $IMAGE_TAG)"
+    - |
+      ssh wathmani@77.42.16.77 "
+        set -e
+        echo '$CI_REGISTRY_PASSWORD' | docker login -u '$CI_REGISTRY_USER' --password-stdin '$CI_REGISTRY'
+        docker pull '$IMAGE_SHA'
+        docker stop doudoutacos-website 2>/dev/null || true
+        docker rm doudoutacos-website 2>/dev/null || true
+        docker run -d --restart unless-stopped --name doudoutacos-website -p 8080:80 '$IMAGE_SHA'
+      "
