@@ -48,7 +48,7 @@ deploy:
         set -e
         echo '$CI_REGISTRY_PASSWORD' | docker login -u '$CI_REGISTRY_USER' --password-stdin '$CI_REGISTRY'
         docker pull '$IMAGE_SHA'
-        docker stop doudoutacos-website 2>/dev/null || true
-        docker rm doudoutacos-website 2>/dev/null || true
-        docker run -d --restart unless-stopped --name doudoutacos-website -p 8080:80 '$IMAGE_SHA'
+        docker stop doudoutacos 2>/dev/null || true
+        docker rm doudoutacos 2>/dev/null || true
+        docker run -d --restart unless-stopped --name doudoutacos -p 8080:80 '$IMAGE_SHA'
       "
