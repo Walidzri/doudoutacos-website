@@ -50,5 +50,5 @@ deploy:
         docker pull '$IMAGE_SHA'
         docker stop doudoutacos 2>/dev/null || true
         docker rm doudoutacos 2>/dev/null || true
-        docker run -d --restart unless-stopped --name doudoutacos -p 8080:80 '$IMAGE_SHA'
+        docker run -d --restart unless-stopped --name doudoutacos --network web '$IMAGE_SHA'
       "
